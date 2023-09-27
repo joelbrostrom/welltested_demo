@@ -67,5 +67,69 @@ You should now have a folder called `operations` in your test path containing on
 
 ### Step 3: Testcase annotations
 
+Now that we have our tests we can look at them and see if something is missing. In my case one test for isPrime looked like this: 
+
+```dart
+ test('isPrime should return true for prime numbers', () {
+      final operations = Operations();
+
+      expect(operations.isPrime(3), true);
+      expect(operations.isPrime(5), true);
+      expect(operations.isPrime(7), true);
+      expect(operations.isPrime(11), true);
+      expect(operations.isPrime(13), true);
+    });
+```
+
+It is odd that it skips the first prime number, 2. 
+To fix this we can either manualy change the test, or we can use the `@Testcases` annotation to tell welltested what we want it to test. To use this annotation find the method you want to provide instructions to and:
+
+1. Add the `@Testcases(['Test description'])` over the method you want to modify. In our case we can add something like this:
+
+    ```dart 
+    /// Returns true if [number] is prime.
+    @Testcases([
+    "Verify that the first 5 known primes return true",
+     ])
+    bool isPrime(int number) {
+      if (number <= 2) return false;
+      for (int i = 2; i * i <= number; i++) {
+        if (number % i == 0) return false;
+      }
+      return true;
+    }
+    ```
+
+2. Run `welltested generate unit` again. This time only the isPrime method has been change, so only this file will be regenerated. 
+
+Once done we can see that our test was updated to the following: 
+
+```dart
+test('isPrime should return true for the first 5 known primes', () {
+  final operations = Operations();
+
+  expect(operations.isPrime(2), true);
+  expect(operations.isPrime(3), true);
+  expect(operations.isPrime(5), true);
+  expect(operations.isPrime(7), true);
+  expect(operations.isPrime(11), true);
+});
+```
+
+This is great, so we run the test and to our suprice (or maybe not) it fails.
+Reading the output we see that `isPrime(2)` returned false.  
+The test has found a bug in our code! 
+
+To fix this we should make the following correction:
+
+```dart
+ if (number <= 2) return false; //Before
+ if (number < 2) return false; //After
+```
+
+Now we can run the tests again and all test will pass. 
+
+We just got saved by the AI.
+
 ### Step 4: Testing Widget logic
 
