@@ -18,7 +18,10 @@ class Operations {
   }
 
   /// Returns true if [number] is prime.
-  @Testcases(["Verify that the first 5 known primes return true"])
+  @Testcases([
+    "Verify that the first 5 known primes return true",
+    "Verify that 2 is a prime number",
+  ])
   bool isPrime(int number) {
     if (number <= 2) return false;
     for (int i = 2; i * i <= number; i++) {
