@@ -9,14 +9,18 @@ class Operations {
     return a - b;
   }
 
-  // String operation: Concatenation
-  String concatenate(String a, String b) {
-    return a + b;
+  // Conditional operation: Check if a number is even
+  bool isEven(int number) {
+    return number % 2 == 0;
   }
 
-  // Collection operation: Finding an element in a list
-  bool containsElement(List<int> list, int element) {
-    return list.contains(element);
+  /// Returns true if [number] is prime.
+  bool isPrime(int number) {
+    if (number <= 2) return false;
+    for (int i = 2; i * i <= number; i++) {
+      if (number % i == 0) return false;
+    }
+    return true;
   }
 
   // Collection operation: Adding elements to a list
@@ -29,24 +33,5 @@ class Operations {
   List<int> removeElementFromList(List<int> list, int element) {
     list.remove(element);
     return list;
-  }
-
-  // Conditional operation: Check if a number is even
-  bool isEven(int number) {
-    return number % 2 == 0;
-  }
-
-  // Conditional operation: Check if a number is odd
-  bool isOdd(int number) {
-    return number % 2 != 0;
-  }
-
-  /// Returns true if [number] is prime.
-  bool isPrime(int number) {
-    if (number <= 2) return false;
-    for (int i = 2; i * i <= number; i++) {
-      if (number % i == 0) return false;
-    }
-    return true;
   }
 }
