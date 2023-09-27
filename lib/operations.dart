@@ -1,3 +1,6 @@
+import 'package:welltested_annotation/welltested_annotation.dart';
+
+@Welltested()
 class Operations {
   // Arithmetic operation: Addition
   int add(int a, int b) {
