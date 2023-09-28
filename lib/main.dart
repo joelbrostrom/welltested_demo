@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:welltested_annotation/welltested_annotation.dart';
 import 'package:welltested_demo/operations.dart';
 
 void main() {
@@ -52,41 +53,42 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  List<int> _discoverdPrimes = [];
+@Welltested(excludedMethods: ["build"])
+class MyHomePageState extends State<MyHomePage> {
+  int counter = 0;
+  List<int> discoverdPrimes = [];
 
-  void _incrementCounter() {
+  void incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter = Operations().add(_counter, 1);
-      if (Operations().isPrime(_counter)) {
-        _discoverdPrimes =
-            Operations().addElementToList(_discoverdPrimes, _counter);
+      counter = Operations().add(counter, 1);
+      if (Operations().isPrime(counter)) {
+        discoverdPrimes =
+            Operations().addElementToList(discoverdPrimes, counter);
       }
     });
   }
 
-  void _decrementCounter() {
+  void decrementCounter() {
     setState(() {
-      if (Operations().isPrime(_counter)) {
-        _discoverdPrimes =
-            Operations().removeElementFromList(_discoverdPrimes, _counter);
+      if (Operations().isPrime(counter)) {
+        discoverdPrimes =
+            Operations().removeElementFromList(discoverdPrimes, counter);
       }
 
-      _counter = Operations().subtract(_counter, 1);
+      counter = Operations().subtract(counter, 1);
     });
   }
 
   String getIsPrimeText() {
-    if (Operations().isPrime(_counter)) {
+    if (Operations().isPrime(counter)) {
       return 'and a prime number!';
     } else {
       return 'but not prime number.';
@@ -134,16 +136,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   'You have pushed the button this many times:',
                 ),
                 Text(
-                  '$_counter',
+                  '$counter',
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 Text(
-                    'which is an ${Operations().isEven(_counter) ? 'even' : 'odd'} number'),
+                    'which is an ${Operations().isEven(counter) ? 'even' : 'odd'} number'),
                 Text(getIsPrimeText()),
                 const SizedBox(height: 32),
-                if (_discoverdPrimes.isNotEmpty)
+                if (discoverdPrimes.isNotEmpty)
                   Text(
-                    'These are the prime numbers up to $_counter: \n ${_discoverdPrimes.join(', ')}',
+                    'These are the prime numbers up to $counter: \n ${discoverdPrimes.join(', ')}',
                   ),
               ],
             ),
@@ -154,12 +156,12 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FloatingActionButton(
-                  onPressed: _incrementCounter,
+                  onPressed: incrementCounter,
                   tooltip: 'Increment',
                   child: const Icon(Icons.add),
                 ),
                 FloatingActionButton(
-                  onPressed: _decrementCounter,
+                  onPressed: decrementCounter,
                   tooltip: 'decrement',
                   child: const Icon(Icons.remove),
                 )
