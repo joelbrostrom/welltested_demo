@@ -12,14 +12,14 @@ void main() {
       expect(operations.isPrime(-1), false);
     });
 
-    test('isPrime should return true for prime numbers', () {
+    test('isPrime should return true for the first 5 known primes', () {
       final operations = Operations();
 
+      expect(operations.isPrime(2), true);
       expect(operations.isPrime(3), true);
       expect(operations.isPrime(5), true);
       expect(operations.isPrime(7), true);
       expect(operations.isPrime(11), true);
-      expect(operations.isPrime(13), true);
     });
 
     test('isPrime should return false for non-prime numbers', () {
